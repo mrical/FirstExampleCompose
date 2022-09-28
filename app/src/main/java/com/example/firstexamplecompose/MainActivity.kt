@@ -35,6 +35,12 @@ class MainActivity : ComponentActivity() {
         var password= remember{
             mutableStateOf("")
         }
+        fun validateLogin(username:String,password:String):Boolean{
+            if(username == "ABCD" && password == "123456"){
+                return true
+            }
+            return false
+        }
 
         Box(modifier=Modifier.background(Color.Yellow)){
             Column(modifier= Modifier
@@ -45,6 +51,11 @@ class MainActivity : ComponentActivity() {
                 OutlinedTextField(value = username.value, onValueChange= { username.value = it },label={ Text(text="User name") },modifier= Modifier.fillMaxWidth(), placeholder = {Text(text="Enter user name")})
                 OutlinedTextField(value = password.value, onValueChange = {password.value=it},label={Text(text="Password")},modifier=Modifier.fillMaxWidth(), placeholder = {Text(text="Enter password")})
                 Button(onClick = {
+                    if(validateLogin(username.value.toString(),password.value.toString())){
+                        Toast.makeText(this@MainActivity,"Correct Credentials",Toast.LENGTH_LONG).show()
+                    }else{
+                        Toast.makeText(this@MainActivity,"In Correct Credentials",Toast.LENGTH_LONG).show()
+                    }
                 }, modifier = Modifier.fillMaxWidth()){
                     Text(text="Login")
                 }
